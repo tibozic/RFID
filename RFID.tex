@@ -1,0 +1,58 @@
+\documentclass[]{article}
+
+% packages
+\usepackage{biblatex} %Imports biblatex package
+
+% config
+% Biblatex
+\addbibresource{resources.bib} %Import the bibliography file
+\nocite{*}
+
+\title{RFID \\
+       \large Radio Frequency Identification}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Osnove}
+RFID tehnologija omogo\v{c}a, da s pomo\v{c}jo
+radiofrekven\v{c}nih polji zaznamo in prepoznamo objekte oziroma
+predmete.
+
+Tehnologija deluje tako, da imamo 2 napravi: bralca ter oznako.
+Oznaka vedno \v{c}aka na bralca. Ko bralec oznako prebudi
+mu ta odgovori s svojo identifikacjisko \v{s}tevilko in po
+mo\v{z}nosti tudi drugimi podatki.
+
+Poznamo ve\v{c} vrst oznak:
+\begin{itemize}
+  \item Pasivne oznake
+  \item Delno pasivne oznake
+  \item Aktivne oznake
+\end{itemize}
+
+\subsection{Pasivne oznake}
+Te v celoti poganja bral\v{c}ev signal in ne potrebujejo svojega
+napajanja.
+
+\subsection{Delno pasivne oznake}
+Te le delno poganja bralcev signal, za izvajanje dodatne logike
+pa potrebujejo tudi svoje napajanje.
+
+\subsection{Aktivne oznake}
+Te za delovanje v celoti uporabljajo svoje napajanje.
+
+\newpage
+
+\section{Viri}
+\printbibliography[heading=none] %Prints bibliography
+
+\end{document}
