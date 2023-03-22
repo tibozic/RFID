@@ -16,11 +16,11 @@
 
 \maketitle
 
-\newpage
+\clearpage
 
 \tableofcontents
 
-\newpage
+\clearpage
 
 \section{Osnove}
 RFID tehnologija omogo\v{c}a, da s pomo\v{c}jo
@@ -32,25 +32,60 @@ Oznaka vedno \v{c}aka na bralca. Ko bralec oznako prebudi
 mu ta odgovori s svojo identifikacjisko \v{s}tevilko in po
 mo\v{z}nosti tudi drugimi podatki.
 
-Poznamo ve\v{c} vrst oznak:
+
+\subsection{RFID v primerjavi z QR kodami}
+Poleg drugih primerov uporabe, se RFID tehnologija uporablja
+tudi za vodenje inventarja v skladi\v{s}\v{c}ih. \\
+
+\noindent
+Zakaj bi uporablja RFID namesto QR kod? \\
+QR kode so v primerjavi z RFID omejene tehnolo\v{s}ko kot tudi
+\v{c}love\v{s}ko:
+\begin{itemize}
+  \item QR kode potrebujejo kodo v vidnem polju
+  \item Skenirati je potrebno eno po eno
+\end{itemize}
+
+\noindent
+Medtem ko RFID tak\v{s}nih omejitev nimajo:
+\begin{itemize}
+    \item RFID uporablja radjisko frekven\v{c}ne valove, ki ne
+      potrebujejo vidnega polja
+    \item RFID bralnik lahko zazna ve\v{c} tiso\v{c} oznak v
+      sekundi in jih vnese v ra\v{c}unalni\v{s}ki sistem
+\end{itemize}
+
+\section{Vrste oznak}
+Poznamo ve\v{c} vrst oznak glede na napajanje, ki ga uporabljajo:
 \begin{itemize}
   \item Pasivne oznake
   \item Delno pasivne oznake
   \item Aktivne oznake
 \end{itemize}
 
+RFID lahko lo\v{c}imo tudi po vi\v{s}inah frekvenc, ki jih
+uporabljajo:
+\begin{itemize}
+  \item Nizko frekven\v{c}ne
+  \item Visoko frekven\v{c}ne
+  \item Ultra visko frekven\v{c}e
+\end{itemize}
+
+
 \subsection{Pasivne oznake}
 Te v celoti poganja bral\v{c}ev signal in ne potrebujejo svojega
 napajanja.
+
 
 \subsection{Delno pasivne oznake}
 Te le delno poganja bralcev signal, za izvajanje dodatne logike
 pa potrebujejo tudi svoje napajanje.
 
+
 \subsection{Aktivne oznake}
 Te za delovanje v celoti uporabljajo svoje napajanje.
 
-\newpage
+\clearpage
 
 \section{Viri}
 \printbibliography[heading=none] %Prints bibliography
