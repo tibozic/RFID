@@ -23,14 +23,17 @@
 \clearpage
 
 \section{Osnove}
-RFID tehnologija omogo\v{c}a, da s pomo\v{c}jo
-radiofrekven\v{c}nih polji zaznamo in prepoznamo objekte oziroma
-predmete.
+RFID tehnologija omogo\v{c}a, da s pomo\v{c}jo radiofrekven\v{c}nih
+polji zaznamo in prepoznamo objekte oziroma predmete.
 
-Tehnologija deluje tako, da imamo 2 napravi: bralca ter oznako.
-Oznaka vedno \v{c}aka na bralca. Ko bralec oznako prebudi
-mu ta odgovori s svojo identifikacjisko \v{s}tevilko in po
-mo\v{z}nosti tudi drugimi podatki.
+Tehnologija deluje tako, da imamo 2 napravi: bralca (RFID Reader) ter
+oznako (RFID Tag). RFID \v{c}italec vsebuje sprejemnik in oddajnik
+signalov, oznaka pa vsebuje transponder. Transponder je naprava, ki
+ko prejme nek signal odgovori z nekim drugim signalom.
+
+Komunikacija poteka tako, da ko RFID oznaka zazna signal, ki ga je
+poslal RFID \v{c}italec, mu odgovori s svojo identifikacijsko
+\v{s}tevilko, ki je lahko uporabljena npr. za sledenja zalog.
 
 
 \subsection{RFID v primerjavi z QR kodami}
@@ -51,11 +54,23 @@ Medtem ko RFID tak\v{s}nih omejitev nimajo:
 \begin{itemize}
     \item RFID uporablja radjisko frekven\v{c}ne valove, ki ne
       potrebujejo vidnega polja
-    \item RFID bralnik lahko zazna ve\v{c} tiso\v{c} oznak v
-      sekundi in jih vnese v ra\v{c}unalni\v{s}ki sistem
+    \item RFID bralnik lahko zazna ve\v{c} oznak v sekundi in jih
+      vnese v ra\v{c}unalni\v{s}ki sistem
 \end{itemize}
 
-\section{Vrste oznak}
+
+\section{Vrste RFID sistemov}
+
+RFID sisteme lahko razvrstimo po tipu oznake in \v{c}italnika, ki ga
+uporabljajo:
+\begin{itemize}
+  \item Pasivni \v{c}italnik aktivna oznaka (PRAT)
+  \item Aktivni \v{c}italnik pasivna oznaka (ARPT)
+  \item Aktivni \v{c}italnik aktivna oznaka (ARAT)
+\end{itemize}
+
+
+\subsection{Oznake}
 Poznamo ve\v{c} vrst oznak glede na napajanje, ki ga uporabljajo:
 \begin{itemize}
   \item Pasivne oznake
@@ -63,6 +78,7 @@ Poznamo ve\v{c} vrst oznak glede na napajanje, ki ga uporabljajo:
   \item Aktivne oznake
 \end{itemize}
 
+\noindent
 RFID lahko lo\v{c}imo tudi po vi\v{s}inah frekvenc, ki jih
 uporabljajo:
 \begin{itemize}
@@ -72,18 +88,24 @@ uporabljajo:
 \end{itemize}
 
 
-\subsection{Pasivne oznake}
+\subsubsection{Pasivne oznake}
 Te v celoti poganja bral\v{c}ev signal in ne potrebujejo svojega
 napajanja.
 
 
-\subsection{Delno pasivne oznake}
+\subsubsection{Delno pasivne oznake}
 Te le delno poganja bralcev signal, za izvajanje dodatne logike
 pa potrebujejo tudi svoje napajanje.
 
 
-\subsection{Aktivne oznake}
+\subsubsection{Aktivne oznake}
 Te za delovanje v celoti uporabljajo svoje napajanje.
+
+\subsection{\v{C}italniki}
+
+TODO: kolizije in branje vec podobnih oznak
+
+\section{Zasebnost}
 
 \clearpage
 
