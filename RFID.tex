@@ -1,12 +1,18 @@
 \documentclass[]{article}
 
 % packages
-\usepackage{biblatex} %Imports biblatex package
+\usepackage{biblatex} % Imports biblatex package
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem} % for advanced enumeration
 
 % config
 % Biblatex
 \addbibresource{resources.bib} %Import the bibliography file
 \nocite{*}
+
+% image path
+\graphicspath{ {./images/} }
 
 \title{RFID \\
        \large Radio Frequency Identification}
@@ -22,90 +28,483 @@
 
 \clearpage
 
+\section{Zgodovina}
+Leta 1945 je Léon Theremin za Sovjetsko zvezo izumil "the Thing",
+prislu\v{s}kovalno napravo brez vgrajene baterije (pasivna).
+
+To napravo so skrili v rezbarski ornament in ga podarili ameri\v{s}ki
+ambasadi. V bli\v{z}njo stavbo so namestili radijski oddajnik, ki je
+oddajal radijske valove proti napravi.
+
+Zvo\v{c}ni valovi pogovorov v ameri\v{s}ki ambasadi so vibririali
+diafragmo v napravi, kar je posledi\v{c}no povzro\v{c}ilo modulacijo
+oddanega radijskega valova oddajne naprave in s tem prenos pogovorov
+ruskim radijskim sprejemnikom. 
+
+\v{C}eprav je bila ta naprava prikrita prislu\v{s}kovalna naprava in
+ne identifikacijska zna\v{c}ka, se lahko \v{s}teje za predhodnico
+RFID, ker so jo napajali in aktivirali valovi iz zunanjega vira.
+
+Prvi pravi primer RFID tehnologije je bil predstavljen leta 1973.
+Naprava je bila pasivna (napajali so jo zunanji radijski valovi) in je
+vsebovala transponder ter 16 bitni spomin.
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=0.8\textwidth]{the_thing.jpg}
+  \caption{The thing}
+\end{figure}
+
 \section{Osnove}
-RFID tehnologija omogo\v{c}a, da s pomo\v{c}jo radiofrekven\v{c}nih
-polji zaznamo in prepoznamo objekte oziroma predmete.
+RFID je tehnologija, ki uporablja radijske valove za identifikacijo
+in sledenje predmetov.
 
-Tehnologija deluje tako, da imamo 2 napravi: bralca (RFID Reader) ter
-oznako (RFID Tag). RFID \v{c}italec vsebuje sprejemnik in oddajnik
-signalov, oznaka pa vsebuje transponder. Transponder je naprava, ki
-ko prejme nek signal odgovori z nekim drugim signalom.
-
-Komunikacija poteka tako, da ko RFID oznaka zazna signal, ki ga je
-poslal RFID \v{c}italec, mu odgovori s svojo identifikacijsko
-\v{s}tevilko, ki je lahko uporabljena npr. za sledenja zalog.
-
-
-\subsection{RFID v primerjavi z QR kodami}
-Poleg drugih primerov uporabe, se RFID tehnologija uporablja
-tudi za vodenje inventarja v skladi\v{s}\v{c}ih. \\
+RFID sistem uporablja zna\v{c}ke (tags) pritrjene na predmete ter
+radijski oddajnik/sprejemnik, imenovan \v{c}italec (reader), ki
+po\v{s}lje signal zna\v{c}ki (jo aktivira) in prebere njen odgovor.
+Ta odgovor lahko nato posreduje drugi napravi za nadaljno obdelavo. \\
 
 \noindent
-Zakaj bi uporablja RFID namesto QR kod? \\
-QR kode so v primerjavi z RFID omejene tehnolo\v{s}ko kot tudi
-\v{c}love\v{s}ko:
+Sestavni deli zna\v{c}ke:
 \begin{itemize}
-  \item QR kode potrebujejo kodo v vidnem polju
-  \item Skenirati je potrebno eno po eno
+  \item mikrokrmilnik (integrirano vezje, ki shranjuje in obdeluje
+    informacije ter modulira in demodulira radiofrekven\v{c}ne (RF)
+    signale)
+  \item antena, ki se uporablja za sprejemanje in oddajanje radijskih
+    signalov
+  \item baterija (samo v aktivnih zna\v{c}kah)
+  \item obstojni pomnilnik za shranjevanje podatkov
+\end{itemize}
+
+\subsection{Prednosti RFID}
+RFID ima \v{s}tevilne prednosti pred tradicionalnimi sistemi
+identifikacije in sledenja.
+\begin{itemize}
+  \item \v{c}italec lahko zna\v{c}ke bere na daljavo
+  \item ni potrebno, da je zna\v{c}ka v vidnem polju \v{c}italca
+  \item zna\v{c}ke lahko hranijo velike koli\v{c}ine informacij
+    (ve\v{c} kB)
+  \item omogo\v{c}a zelo hitro in natan\v{c}no branje ve\v{c}jih
+    koli\v{c}in podatkov
+  \item so odporne na zunanje dejavnike 
+\end{itemize}
+
+\subsection{Slabosti RFID}
+\begin{itemize}
+  \item ena glavnih je zasebnost, saj je lahko zna\v{c}ka prebrana
+    brez privolitve nosilca
+  \item RFID tehnologija potrebuje precej\v{s}njo investicijo v
+    potrebno strojno in programsko opremo
+\end{itemize}
+
+\clearpage
+\subsection{Delovanje}
+RFID zna\v{c}ka se aktivira, ko pride v doseg RFID \v{c}italca:
+\begin{enumerate}
+  \item Čitalec odda radijski signal
+  \item Antena značke ta signal sprejme
+    \begin{enumerate}[label=\alph*.]
+      \item Značka lahko ta signal uporabi za napajanje mikrokrmilnika (pasivna značka)
+    \end{enumerate}
+  \item Mikrokrmilnik značke pošlje podatke shranjene na znački preko antene kot odgovor (v obliki radijskega signala) čitalcu
+\end{enumerate}
+
+\noindent
+RFID zna\v{c}ka sprejme sporo\v{c}ilo in se nato odzove s svojimi
+podatki.
+
+Te podatki so lahko edinstvena serijska \v{s}tevilka zna\v{c}ke ali
+pa informacije povezane z izdelkom, kot so, datum proizvodnje itd\ldots
+
+Ker imajo zna\v{c}ke unikatne serijske \v{s}tevilke, lahko RFID sistem
+razlikuje med ve\v{c} zna\v{c}kami, ki so isto\v{c}asno v dosegu
+\v{c}italnika in s tem bere podatki z vseh zna\v{c}k hkrati.
+
+\subsection{Vrste sistemov/zna\v{c}k}
+\subsubsection{Vrste zna\v{c}k glede na napajanje}
+\begin{enumerate}
+  \item Pasivne \\
+    Za napajanje uporabljajo radijski signal \v{c}italca. So
+    manj\v{s}e in cenej\v{s}e, a za aktivacijo potrebujejo
+    pribli\v{z}no tiso\v{c}krat mo\v{c}nej\v{s}i signal.
+  \item Delno pasivne \\
+    Imajo vgrajeno baterijo in se aktivirajo, ko zaznajo prisotnost
+    \v{c}italca.
+  \item Aktivne \\
+    Imajo vgrajeno baterijo in periodi\v{c}no oddajajo svoj ID preko
+    radijskega signala.
+\end{enumerate}
+
+\subsection{Vrste sistemov glede na kombinacijo \v{c}italec-zna\v{c}ka}
+\begin{itemize}
+  \item Pasivni \v{c}italec aktivna zna\v{c}ka (PRAT)
+    \begin{itemize}
+      \item \v{c}italec samo sprejema radijo signale, ki jih
+        zna\v{c}ka periodi\v{c}no oddaja
+      \item uporablja se za varovanje in nadzor sredstev
+    \end{itemize}
+  \item Aktivni \v{c}italec pasivna zna\v{c}ka (ARPT)
+  \item Aktivni \v{c}italec aktivna zna\v{c}ka (ARAT)
 \end{itemize}
 
 \noindent
-Medtem ko RFID tak\v{s}nih omejitev nimajo:
+Fiksni \v{c}italniki ustvarijo specifi\v{c}no obmo\v{c}je branja ki
+ga je mogo\v{c}e strogo nadzorovati. To omogo\v{c}a visoko definirano
+obmo\v{c}je branja, ko zna\v{c}ke vstopijo in izstopijo iz območja
+branja. \\
+Mobilni \v{c}italniki so lahko ro\v{c}ni ali name\v{s}\v{c}eni na
+vozi\v{c}kih/vozilih.
+
+\subsection{Vrste sistemov glede na frekvenco}
+RFID lo\v{c}imo tudi glede na frekvenco signala:
 \begin{itemize}
-    \item RFID uporablja radjisko frekven\v{c}ne valove, ki ne
-      potrebujejo vidnega polja
-    \item RFID bralnik lahko zazna ve\v{c} oznak v sekundi in jih
-      vnese v ra\v{c}unalni\v{s}ki sistem
+  \item Nizko frekvenčne
+    \begin{itemize}
+      \item Razpon: 120 – 150 kHz
+      \item Doseg: 10 cm
+      \item Prenosna hitrost: nizka
+    \end{itemize}
+  \item Visoko frekvenčne
+    \begin{itemize}
+      \item Razpon: 13.56 MHz
+      \item Doseg: 0.1 – 1 m
+      \item Prenosna hitrost: nizka/srednja
+    \end{itemize}
+  \item Ultra visoko frekvenčne
+    \begin{itemize}
+      \item Razpon: 865 – 928 MHz
+      \item Doseg: 1 – 12 m
+      \item Prenosna hitrost: srednja/visoka
+    \end{itemize}
 \end{itemize}
 
+\subsection{Komunikacija med \v{c}italcem in zna\v{c}ko}
+Zna\v{c}ka ima lahko lo\v{c}en oddajnik in sprejemnik. To pomeni, da
+zna\v{c}ka lahko odgovori z signalom druga\v{c}ne frekvence, kot je
+bil signal \v{c}italca.
 
-\section{Vrste RFID sistemov}
-
-RFID sisteme lahko razvrstimo po tipu oznake in \v{c}italnika, ki ga
-uporabljajo:
-\begin{itemize}
-  \item Pasivni \v{c}italnik aktivna oznaka (PRAT)
-  \item Aktivni \v{c}italnik pasivna oznaka (ARPT)
-  \item Aktivni \v{c}italnik aktivna oznaka (ARAT)
-\end{itemize}
-
-
-\subsection{Oznake}
-Poznamo ve\v{c} vrst oznak glede na napajanje, ki ga uporabljajo:
-\begin{itemize}
-  \item Pasivne oznake
-  \item Delno pasivne oznake
-  \item Aktivne oznake
-\end{itemize}
+EPC (Electronic Product Code) je trenutni standard, ki se uporablja
+za enli\v{c}no identifikacijo zna\v{c}ke in produkta na globalnem
+nivoju. \\
 
 \noindent
-RFID lahko lo\v{c}imo tudi po vi\v{s}inah frekvenc, ki jih
-uporabljajo:
+Sestava EPC po bitih:
 \begin{itemize}
-  \item Nizko frekven\v{c}ne
-  \item Visoko frekven\v{c}ne
-  \item Ultra visko frekven\v{c}e
+  \item 8: glava, ki označuje verzijo protokola
+  \item 28: identifikacijska \v{s}tevilka organizacije (dodeli EPC
+    Global consortium), ki upravlja s podatki zna\v{c}ke
+  \item 24: skupina produkta
+  \item 36: serijska \v{s}tevilka zna\v{c}ke
 \end{itemize}
 
+\subsubsection{Kolizije}
+Pogosto se ve\v{c} kot ena zna\v{c}ka odzove na \v{c}italec oznak.
+Zaznavanje kolizij oz. trkov je pomembno za omogočanje branja
+podatkov.
 
-\subsubsection{Pasivne oznake}
-Te v celoti poganja bral\v{c}ev signal in ne potrebujejo svojega
-napajanja.
+Za izolacijo dolo\v{c}ene oznake se uporabljata dva razli\v{c}na
+protokola, ki omogo\v{c}ata branje podatkov zna\v{c}ke tudi, \v{c}e
+se nahaja v bli\v{z}ini drugih zna\v{c}k. \\
+
+\noindent
+\textbf{Aloha s \v{c}asovnimi rezinami} \\
+\v{C}asovno okno komunikacije razdelimo na enako velike \v{c}asovne
+rezine (npr. 1 sekunda).
+
+Naprave lahko pri\v{c}nejo oddajo podatkov le ob za\v{c}etku vsake
+\v{c}asovne rezine. V primeru hkratnega oddajanja dveh ali ve\v{c}
+naprav se zgodi kolizija in mora vsaka naprava po\v{c}akati
+naklju\v{c}no \v{s}tevilo \v{c}asovnih rezin pred ponovno oddajo.
+
+\v{C}italec po\v{s}lje inicializacijski signal in parameter.
+Zna\v{c}ke s pomo\v{c}jo parametra izra\v{c}unajo naklju\v{c}no
+\v{s}tevilo.  \\
+
+\noindent
+\textbf{Protokol prilagodljivega binarnega drevesa} \\
+\v{C}italec po\v{s}lje inicializacijski signal in nato posreduje po
+en bit ID zna\v{c}ke naenkrat. Odzivajo se le zna\v{c}ke z
+ujemajo\v{c}imi biti. S\v{c}asoma se samo ena zna\v{c}ka ujema s
+celotnim nizom ID-ja.
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{binary_tree_collision.png}
+  \caption{Primer izogibanja koliziji z binarnim drevesom}
+\end{figure}
+
+\subsection{Primeri uporabe}
+\begin{itemize}
+  \item omgo\v{c}ajo efektivno vodenje sredstev (zaloga, vrsta
+    produkta)
+  \item za\v{s}\v{c}ita proti kraji v trgovinah in skladi\v{s}\v{c}ih
+  \item kontrola dostopa v zavarovanih obmo\v{c}jih
+  \item identifikacija \v{z}ivali
+  \item vodenje knji\v{z}nic
+\end{itemize}
+
+\clearpage
+\subsection{Varnost}
+Glavna varnostna skrb RFID tehnologije je nedovoljeno sledenje in
+branje podatkov na zna\v{c}kah.
+
+\noindent
+Za varnost lahko poskrbimo na 2 na\v{c}ina:
+\begin{enumerate}
+  \item Uporabimo RFID, ki deluje na kraj\v{s}e razdalje za visoko
+    rizi\v{c}ne dokumente (potni list, pla\v{c}ilne kartice). Z
+    uporabo nizkofrekven\v{c}nih zna\v{c}k je verjetnost za
+    ``skimming'' (nedovoljeno branje z zna\v{c}ke) manj\v{s}a. Kljub
+    temu pa je bilo dokazano, da je \v{s}e vedno mo\v{z}no prebrati
+    nizkofrekven\v{c}ne zna\v{c}ke tudi na razdaljah ve\v{c} metrov.
+  \item Uporabimo kriptografski pristop:
+    \begin{enumerate}[label=\alph*.]
+        \item Cover-coding: Zna\v{c}ka generira naklju\v{c}no
+          \v{s}tevilo. \v{C}italec uporabi to \v{s}tevilo za
+          enkripcijo vseh nadaljnih sporo\v{c}il, ki jih po\v{s}lje
+          zna\v{c}ki.
+        \item Rolling code: \v{C}italec in zna\v{c}ka za vsako
+          poslano sporo\v{c}ilo dogovorita za nov \v{s}ifririni
+          klju\v{c}.
+    \end{enumerate}
+\end{enumerate}
+
+\section{Protokol}
+Iz standarda ISO/IEC 18000 (Information technology — Radio
+frequency identification for item management), specifi\v{c}no 6.
+del (komunikacija na UHF).
+
+Za druge frekvence je standard podoben, z manj\v{s}o/ve\v{c}jo
+zmogljivostjo. Poleg tega standarda, mora vsaka naprava
+tudi slediti lokalnim standardom uporabljanja frekvenc. \\
+
+\noindent
+Standard podpira dve vrsti naprav:
+\begin{itemize}
+    \item Vrsta A - uporablja Pulse interval encoding (PIE) in
+      ALOHA algoritem za prepre\v{c}itev kolizji (tem se bomo
+      tukaj bolj posvetili)
+    \item Vrsta B - uporablja Manchester encoding in binary tree
+      collision za prepre\v{c}itev kolizji
+\end{itemize}
+
+\clearpage
+\subsection{Komunikacija}
+\subsubsection{PIE Kodiranje}
+Pulse Interval Encoding (Impulzno Intervalno Kodiranje) deluje tako,
+da izmeri \v{c}as med 2 negativnima frontama. Ta \v{c}as dolo\v{c}i
+podatek ('1' ali '0').
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{pie_graph.png}
+  \caption{PIE - Dol\v{z}ina 1 Tari}
+\end{figure}
+
+\noindent
+\emph{Tari} predstavlja \v{c}as med 2 negativnima frontama pri
+vrednosti '0'. Za predstavitev '1' se pogosto uporablja signal
+dol\v{z}ine 2 Tari. \\
+SOF (Start of frame) je predstaviljen z 1 Tari + 3 Tari. \\
+EOF (End of frame) je predstavljen z 4 Tari. \\
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{pie_symbols.png}
+  \caption{PIE - Simboli}
+\end{figure}
+ 
+Ko zna\v{c}ka bere te vrednosti, moramo imeti nekaj tolerance za
+motnje pri prenosu. Vrednosti Tari na zna\v{c}ki se kalibrira pri
+SOF.
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{pie_tag_headroom.png}
+  \caption{PIE - Zaznavanje vrednosti na zna\v{c}ki}
+\end{figure}
+
+Pred za\v{c}etkom po\v{s}iljanja mora \v{c}italec poskrbeti, da je
+pretekel dolo\v{c}en \v{c}as ti\v{s}ine (300$\mu$s). \\
+Po poslanem EOF, mora \v{c}italec ohraniti enakomern signal, da
+je zna\v{c}ka napajana za njen odgovor.
+ 
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{pie_command.png}
+  \caption{PIE - Po\v{s}iljanje ukaza}
+\end{figure}
 
 
-\subsubsection{Delno pasivne oznake}
-Te le delno poganja bralcev signal, za izvajanje dodatne logike
-pa potrebujejo tudi svoje napajanje.
+\subsubsection{ALOHA}
+Za prepre\v{c}evanje kolizji se uporablja ALOHA protokol. \\
 
+\noindent
+RFID uporablja protokol ALOHA, tako da zna\v{c}ke razdeli v kroge.
+Ko prvi\v{c} pride do kolizije, morajo vse zna\v{c}ke, ki so
+sodelovale v prej\v{s}njem krogu po\v{s}ilanja pognati svoj
+naklju\v{c}ni generator \v{s}tevil. Vrednost, ki je bila generirana,
+zna\v{c}ki pove v katerem krogu naj za\v{c}ne po\v{s}iljati podatke,
+pri \v{c}emer vrednost 0 pomeni naslednji krog.
 
-\subsubsection{Aktivne oznake}
-Te za delovanje v celoti uporabljajo svoje napajanje.
+\v{C}e v naslednjem krogu ponovno pride do kolizije, morajo vse
+zna\v{c}ke, ki niso sodelovale v po\v{s}iljanju svoj krog pove\v{c}ati
+za 1. Vse zna\v{c}ke ki pa so sodelovale v po\v{s}iljanju ponovno
+po\v{z}enejo svoj generator \v{s}tevil in dobijo nov krog. \\
 
-\subsection{\v{C}italniki}
+\noindent
+Vsaka zna\v{c}ka na za\v{c}etku komunikacije tudi generira svoj
+podpis, ki se kasneje uporablja pri komunikaciji z \v{c}italnikom.
+Zna\v{c}ka na za\v{c}etku komunikacje svoj podpis posreduje
+\v{c}italniku, ta pa mora v vse naslednje pakete, ki so namenjeni tej
+zna\v{c}ki vklju\v{c}iti njen podpis. Zna\v{c}ka vse pakete, ki ne
+vsebujejo njenega podpisa ignorira, saj misli, da niso namenjeni njej.
 
-TODO: kolizije in branje vec podobnih oznak
+\clearpage
+\subsubsection{Ukazi in odgovori}
+Protokol deluje, na principu \v{c}italec govori prvi. To pomeni,
+da zna\v{c}ka ne odgovori, dokler ne prejme pravilno dekodiranega
+ukaza. \\
 
-\section{Zasebnost}
+\noindent
+Zna\v{c}ka je v resnici kon\v{c}ni stroj:
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{tag_state_machine.png}
+  \caption{Kon\v{c}ni stroj zna\v{c}ke}
+\end{figure}
+
+\noindent
+\textbf{RF Field off state} pomeni, da zna\v{c}ka ne dobiva
+napajanja. \\
+\textbf{Ready state} pomeni, da znacka dobiva dovolj napajanja za
+pravilno delovanje. \\
+\textbf{Quiet state} pomeni, da bo zna\v{c}ka odgovorila na vse ukaze
+z njenim podpisom, ne bo pa odgovarjala na ukaze brez podpisov. \\
+\textbf{Selected state} pomeni, da zna\v{c}ka odgovarja tudi na
+ukaze, ki ne vsebujejo katerega koli podpisa. \\
+\textbf{Round\_active state} pomeni, da zna\v{c}ka sodeluje v
+naslednjem poskusu po\v{s}iljanja (ALOHA). \\
+\textbf{Round\_standby state} pomeni, da zna\v{c}ka ne sodeluje v
+naslednjem poskusu po\v{s}iljanja (ALOHA). \\
+
+Ukazi in odgovori se izmenjujejo v obliki okvirjev. \\
+Oblika ukaza:
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{command_frame.png}
+  \caption{Oblika okvirja pri ukazu}
+\end{figure}
+
+\noindent
+\v{C}e ukaz vsebuje SUID zastavico, mora zna\v{c}ka primerjati svoj
+podpis, s tistim, ki ga je poslal \v{c}italec in odgovori le v
+primeru, da se ta ujema. \v{C}e ukaz ne vsebuje SUID zastavice, na
+ta ukaz odgovorijo vse zna\v{c}ke, ki so v izbranem stanju.
+
+\noindent
+RFU - Reserved for future use \\
+
+\noindent
+Ukazi se delijo na 4 razli\v{c}ne skupine:
+\begin{enumerate}
+  \item Mandatory - obvezni ukazi
+  \item Optional - neobvezni ukazi (ob nepodpiranju ukaza, zna\v{c}ka
+    odgovori z napako ``command not supported'')
+  \item Custom - ukazi, ki jih definira proizvajalec in so odprti
+    za uporabnike
+  \item Proprietary - ukazi, ki jih uporablja proizvajalec za
+    testiranje, ni nujno da so odprte za uporabnike
+\end{enumerate}
+
+\noindent
+\v{C}italec mora podpirati vse obvezne in neobvezne ukaze.
+
+\noindent
+Primeri ukazov:
+\begin{itemize}
+  \item Init\_round
+  \item Next\_slot
+  \item Close\_slot
+  \item Standy\_round
+  \item Read\_block
+  \item Get\_system\_information
+  \item Write\_block
+  \item Write\_multiple\_blocks
+  \item Lock\_blocks
+  \item Get\_block\_lock\_status
+\end{itemize}
+
+\subsubsection{Ukazi za izbiranje skupin zna\v{c}k}
+Za to se uporabljata ukaza \texttt{GROUP\_SELECT} in
+\texttt{GROUP\_UNSELECT}. \\
+Obema ukazoma dodamo tudi primerjalno pripono: EQ, NE, GT, LT. \\
+Zna\v{c}ka, ki zadostuje pogoju odgovori s svojim UID. \\
+Primerja se lahko katerakoli vrednost, za katero vemo na katerem
+naslovu se nahaja. 
+
+\subsubsection{Napake}
+Oblika paketa z sporocilom o napaki:
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{response_frame.png}
+  \caption{Oblika okvirja pri odgovoru}
+\end{figure}
+
+Vrste napak:
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{response_error_code.png}
+  \caption{Vrste napak}
+\end{figure}
+
+\v{C}italec mora tudi poslati odgovor o uspe\v{s}no prejetem
+sporo\v{c}ilu iz strani zna\v{c}ke.
+
+\subsubsection{Manchester kodiranje}
+
+V manchester kodirnaju se za predstavitev vrednosti uporabljajo
+prehodi med stanji.
+
+\begin{table}[H] % H means exactly in place
+  \begin{center}
+    \begin{tabular}{c | c}
+      Vrednost & Prehod \\
+      \hline
+      1 & High to Low \\
+      0 & Low to High \\
+    \end{tabular}
+  \end{center}
+  \caption{Tabela vrednosti v Manchester kodiranju}
+\end{table}
+
+\begin{figure}[H] % H means exactly in place
+  \centering
+  \includegraphics[width=\textwidth]{manchester_encoding.png}
+  \caption{Manchester kodiranje}
+\end{figure}
+
+\subsection{Shramba}
+Protokol dovoljuje do 256 blokov podatkov, kjer je vsak blok
+velikosti do 256 bitov (skupaj 64kBits). Kasnej\v{s}e iteracije
+tega standarda dovoljujejo raz\v{s}iritev te shrambe.
+
+Vsak blok podatkov je lahko zakljenjen uporabni\v{s}ko ali
+tovarni\v{s}ko. Uporabni\v{s}ko zaklenjene bloke je mogo\v{c}e
+odkleniti z uporabni\v{s}ko dolo\v{c}enim geslom, medtem ko
+tovarni\v{s}ko zaklenjenih blokov ni mogo\v{c}e odkleniti.
+
+\clearpage
+\section{Zaklju\v{c}ek}
+RFID je zmogljiva tehnologija, ki ima \v{s}tevilne primere uporabe v
+razli\v{c}nih panogah. Ponuja \v{s}tevilne prednosti pred
+tradicionalnimi sistemi identifikacije in sledenja, kot so branje na
+daljavo, hiter in natan\v{c}en zajem podatkov ter odpornost. Vendar
+pa ima tudi nekaj pomanjkljivosti, kot so pomisleki glede zasebnosti
+in varnosti ter visoki stro\v{s}ki implementacije. Kot pri vsaki
+tehnologiji je tudi pri RFID pomembno pretehtati prednosti in
+slabosti ter oceniti, ali je prava re\v{s}itev za dolo\v{c}en primer
+uporabe.
 
 \clearpage
 
